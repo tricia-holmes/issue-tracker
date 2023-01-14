@@ -6,23 +6,23 @@ export default function Swimlane() {
           <p>Backlog</p>
         </div>
         <div className='message-body'>
-          <div className='board-item'>
-            <div className='board-item-content'>
+          <div className='swimlane-item'>
+            <div className='swimlane-item-content'>
               <span>Example of a ticket</span>
             </div>
           </div>
-          <div className='board-item'>
-            <div className='board-item-content'>
+          <div className='swimlane-item'>
+            <div className='swimlane-item-content'>
               <span>Example of a ticket</span>
             </div>
           </div>
-          <div className='board-item'>
-            <div className='board-item-content'>
+          <div className='swimlane-item'>
+            <div className='swimlane-item-content'>
               <span>Example of a ticket</span>
             </div>
           </div>
-          <div className='board-item'>
-            <div className='board-item-content'>
+          <div className='swimlane-item'>
+            <div className='swimlane-item-content'>
               <span>Example of a ticket</span>
             </div>
           </div>
