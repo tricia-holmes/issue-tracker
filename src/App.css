@@ -1,9 +1,9 @@
-.swimlane-item {
+.ticket {
   margin: 5px 0;
   will-change: transform;
 }
 
-.swimlane-item-content {
+.ticket-content {
   position: relative;
   text-align: center;
   cursor: pointer;

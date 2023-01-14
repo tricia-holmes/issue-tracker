@@ -1,3 +1,5 @@
+import Ticket from './Ticket'
+
 export default function Swimlane() {
   return (
     <section className='column is-narrow'>
@@ -6,26 +8,7 @@ export default function Swimlane() {
           <p>Backlog</p>
         </div>
         <div className='message-body'>
-          <div className='swimlane-item'>
-            <div className='swimlane-item-content'>
-              <span>Example of a ticket</span>
-            </div>
-          </div>
-          <div className='swimlane-item'>
-            <div className='swimlane-item-content'>
-              <span>Example of a ticket</span>
-            </div>
-          </div>
-          <div className='swimlane-item'>
-            <div className='swimlane-item-content'>
-              <span>Example of a ticket</span>
-            </div>
-          </div>
-          <div className='swimlane-item'>
-            <div className='swimlane-item-content'>
-              <span>Example of a ticket</span>
-            </div>
-          </div>
+          <Ticket />
         </div>
       </article>
     </section>
