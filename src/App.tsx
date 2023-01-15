@@ -1,33 +1,23 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import './App.css'
+import Board from './components/Board'
+import Nav from './components/Nav'
+import { addTicket } from './store/actions'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch()
+  const makeTicket = (title: string, description: string) => {
+    dispatch(addTicket({ title, description }))
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+      <Nav />
+      <Board />
+      <button onClick={() => makeTicket('this is my title', 'this is a desc')}>Click me</button>
+    </>
   )
 }
 
