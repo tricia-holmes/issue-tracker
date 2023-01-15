@@ -1,26 +1,34 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import './App.css'
 import Board from './components/Board'
 import Nav from './components/Nav'
-import { addTicket, setTickets } from './store/actions'
-import { Ticket } from './store/types'
-import { fetchTickets } from './utilis/apiCalls'
+import { addTicket } from './store/actions'
+
+import { getTickets } from './features/tickets/ticketsSlice'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { AppDispatch, RootState } from './store/store'
+// import { useAppDispatch, useAppSelector } from './hooks/redux/hooks'
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
+  const { loading, error } = useSelector((state: RootState) => state.tickets)
   const makeTicket = (title: string, description: string) => {
     dispatch(addTicket({ title, description }))
   }
-  const displayTickets = (tickets: Ticket[]) => {
-    dispatch(setTickets(tickets))
-  }
 
   useEffect(() => {
-   
-  }, [])
+    dispatch(getTickets())
+  }, [dispatch])
 
+  let content
+  if (loading === 'pending') {
+    content = <div>Loading...</div>
+  }
+
+  if (error !== null) {
+    content = <div>{error}</div>
+  }
   return (
     <>
       <Nav />
