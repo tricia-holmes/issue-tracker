@@ -6,7 +6,6 @@ export type TicketProps = {
 }
 
 export type SwimlaneProps = {
-  type: string
-  tickets: TicketProps[]
+  type: 'backlog' | 'inProgress' | 'codeReview' | 'done'
   color: string
 }
