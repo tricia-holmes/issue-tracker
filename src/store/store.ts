@@ -1,11 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { ActionTypes, ADD_TICKET, SET_TICKETS, UPDATE_TICKET } from './actions'
-import { Ticket, Store, createdTicket } from './types'
-
-export const addTicket = (tickets: Ticket[], title: string, description: string, status: string): createdTicket[] => [
-  ...tickets,
-  { title, description, status },
-]
+import { Ticket, Store } from './types'
 
 export const updateTicket = (tickets: Ticket[], id: number, status: string): Ticket[] =>
   tickets.map((ticket) => ({
@@ -19,8 +14,6 @@ function ticketReducer(
     inProgress: [],
     codeReview: [],
     done: [],
-    newTicket: { title: '', description: '', status: '' },
-    // ticket: {id: null, title: "", description: "", status: ""}
   },
   action: ActionTypes
 ) {
@@ -28,11 +21,7 @@ function ticketReducer(
     case SET_TICKETS:
       return { ...state, tickets: action.payload }
     case ADD_TICKET:
-      return {
-        ...state,
-        newTicket: {},
-        tickets: addTicket(state.backlog, state.newTicket, state.newTicket, state.newTicket),
-      }
+      return { ...state, backlog: [...state.backlog, action.payload] }
     // case UPDATE_TICKET:
     //   return { ...state, tickets: updateTicket(state.backlog, state.ticket, action.payload) }
     default:

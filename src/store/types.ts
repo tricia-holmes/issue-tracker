@@ -1,21 +1,18 @@
-export interface createdTicket {
+export type CreateTicket = {
   title: string
   description: string
-  status: string
 }
 
-export interface Ticket {
+export type Ticket =  {
   id: number
   title: string
   description: string
   status: string
 }
 
-export interface Store {
+export type Store = {
   backlog: Ticket[]
   inProgress: Ticket[]
   codeReview: Ticket[]
   done: Ticket[]
-  newTicket: any
-  // ticket: any
 }
