@@ -8,4 +8,5 @@ export type TicketProps = {
 export type SwimlaneProps = {
   type: string
   tickets: TicketProps[]
+  color: string
 }

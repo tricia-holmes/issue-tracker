@@ -12,6 +12,7 @@ export default function Board() {
           description:
             'Users are reporting an issue when trying to submit a form on the website. Upon clicking the submit button, an error message appears reading "An error has occurred, please try again later." This issue is affecting a number of users and is preventing them from submitting the form successfully.',
           status: 'Backlog',
+          color: 'waring',
         },
         {
           id: 2,
@@ -28,6 +29,7 @@ export default function Board() {
           status: 'Backlog',
         },
       ],
+      color: 'warning',
     },
     {
       type: 'in progress',
@@ -54,6 +56,7 @@ export default function Board() {
           status: 'Backlog',
         },
       ],
+      color: 'info',
     },
     {
       type: 'code review',
@@ -80,6 +83,7 @@ export default function Board() {
           status: 'Backlog',
         },
       ],
+      color: 'danger',
     },
     {
       type: 'done',
@@ -98,22 +102,20 @@ export default function Board() {
             'Users are reporting an issue when trying to submit a form on the website. Upon clicking the submit button, an error message appears reading "An error has occurred, please try again later." This issue is affecting a number of users and is preventing them from submitting the form successfully.',
           status: 'Backlog',
         },
-        {
-          id: 3,
-          title: 'Broken links found on the contact page',
-          description:
-            'Users are reporting an issue when trying to submit a form on the website. Upon clicking the submit button, an error message appears reading "An error has occurred, please try again later." This issue is affecting a number of users and is preventing them from submitting the form successfully.',
-          status: 'Backlog',
-        },
       ],
+      color: 'success',
     },
   ]
 
-  const swimlanes = statuses.map((status, index) => <Swimlane key={`status ${index}`} type={status.type} tickets={status.tickets} />)
+  const swimlanes = statuses.map((status, index) => (
+    <Swimlane key={`status ${index}`} type={status.type} tickets={status.tickets} color={status.color} />
+  ))
 
   return (
-    <div className='level-item'>
-      <div className='columns is-multiline is-centered cards-container'>{swimlanes}</div>
-    </div>
+    <section className='container cards-container'>
+      <div className='level-item'>
+        <div className='columns is-mobile is-centered is-multiline board-container'>{swimlanes}</div>
+      </div>
+    </section>
   )
 }
