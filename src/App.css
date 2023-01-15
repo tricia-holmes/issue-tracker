@@ -26,6 +26,6 @@
 }
 
 
-/* .column {
-  display: flex;
-} */
+.width {
+  min-width: 250px;
+}

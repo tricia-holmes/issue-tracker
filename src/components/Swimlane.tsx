@@ -11,12 +11,12 @@ export default function Swimlane({type, color} : SwimlaneProps) {
   ))
 
   return (
-    <section className='column'>
-      <article className={`message is-${color}`}>
-        <div className='message-header'>
+    <section className='column is-narrow width'>
+      <article className={`message is-${color} width`}>
+        <div className='message-header width'>
           <p>{type}</p>
         </div>
-        <div className='message-body'>{swimlaneTickets}</div>
+        <div className='message-body width'>{swimlaneTickets}</div>
       </article>
     </section>
   )
