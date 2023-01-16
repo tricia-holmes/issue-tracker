@@ -2,7 +2,7 @@ export type TicketProps = {
   id: number
   title: string
   description: string
-  status: string
+  status: 'backlog' | 'inProgress' | 'codeReview' | 'done'
 }
 
 export type SwimlaneProps = {
@@ -21,4 +21,12 @@ export type AddModalProps = {
 
 export const ItemTypes = {
   TICKET: 'ticket',
+}
+
+export type EditFormProps = {
+  close: () => void
+  id: number
+  title: string
+  description: string
+  status: 'backlog' | 'inProgress' | 'codeReview' | 'done'
 }
