@@ -6,7 +6,7 @@ export type TicketProps = {
 }
 
 export type SwimlaneProps = {
-  type: 'backlog' | 'inProgress' | 'codeReview' | 'done'
+  type: 'backlog' | 'inProgress' | 'codeReview' | 'done' 
   color: string
 }
 
@@ -17,4 +17,8 @@ export type newTicket = {
 
 export type AddModalProps = {
   close: () => void
+}
+
+export const ItemTypes = {
+  TICKET: 'ticket',
 }
