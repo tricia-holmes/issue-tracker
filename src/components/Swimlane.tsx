@@ -23,8 +23,8 @@ export default function Swimlane({ type, color }: SwimlaneProps) {
     backgroundColor = 'darkkhaki'
   }
 
-  const swimlaneTickets = tickets.map((ticket, index) => (
-    <Ticket key={`ticket ${index}`} id={ticket.id} title={ticket.title} description={ticket.description} status={ticket.status} />
+  const swimlaneTickets = tickets.map((ticket) => (
+    <Ticket key={`ticket ${ticket.id}`} id={ticket.id} title={ticket.title} description={ticket.description} status={ticket.status} />
   ))
 
   return (
