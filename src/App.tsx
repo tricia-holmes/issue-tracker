@@ -15,11 +15,7 @@ function App() {
     dispatch(getTickets())
   }, [dispatch])
 
-  const test = () => {
-    dispatch(addTicket({ title: 'this is a test', description: 'ticket' }))
-  }
-
-  let content
+  let content // need to add ui for loading or if there is an error
   if (loading === 'pending') {
     content = <div>Loading...</div>
   }
@@ -30,9 +26,7 @@ function App() {
   return (
     <>
       <Nav />
-      {content}
       <Board />
-      <button onClick={() => test()}>Click me</button>
     </>
   )
 }

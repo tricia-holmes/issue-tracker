@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { ADD_TICKET, SET_TICKETS } from '../../store/actions'
+import { ADD_TICKET, SET_TICKETS, UPDATE_TICKET } from '../../store/actions'
 import { Ticket } from '../../store/types'
 import { API_ROUTES } from '../../utilis/constants'
 import { newTicket } from '../../types/types'
+import { useParams } from 'react-router-dom'
 
 export type InitialState = {
   backlog: Ticket[]
@@ -52,6 +53,20 @@ export const addTicket = createAsyncThunk(ADD_TICKET, async (newTicket: newTicke
   return await response.json()
 })
 
+export const updateTicket = createAsyncThunk(UPDATE_TICKET, async (changeTicket: Ticket) => {
+  // const { id } = useParams()
+  const { id, title, description, status } = changeTicket
+  const response = await fetch(`${API_ROUTES.UPDATE_TICKET}${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ title, description, status }),
+  })
+
+  return (await response.json()) as Ticket
+})
+
 export const ticketsSlice = createSlice({
   name: 'tickets',
   initialState,
@@ -92,6 +107,28 @@ export const ticketsSlice = createSlice({
       }
     })
     builder.addCase(addTicket.rejected, (state, action) => {
+      if (state.loading === 'pending') {
+        state.loading = 'idle'
+        state.error = 'Error occured'
+      }
+    })
+    // update a ticket
+    builder.addCase(updateTicket.pending, (state, action) => {
+      if (state.loading === 'idle') {
+        state.loading = 'pending'
+      }
+    })
+    builder.addCase(updateTicket.fulfilled, (state, action) => {
+      if (state.loading === 'pending') {
+        const { id, title, description, status } = action.payload
+        let foundTicketIndex = state[status].findIndex((ticket) => ticket.id === id)
+        console.log('FOUND', foundTicketIndex)
+        state[status][foundTicketIndex] = { id, title, description, status }
+        
+        state.loading = 'idle'
+      }
+    })
+    builder.addCase(updateTicket.rejected, (state, action) => {
       if (state.loading === 'pending') {
         state.loading = 'idle'
         state.error = 'Error occured'
