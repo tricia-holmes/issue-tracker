@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, Update } from '@reduxjs/toolkit'
 import { ADD_TICKET, SET_TICKETS, UPDATE_TICKET } from '../../store/actions'
-import { Ticket } from '../../store/types'
+import { ResponseTicket, Ticket, UpdateTicket } from '../../store/types'
 import { API_ROUTES } from '../../utilis/constants'
 import { newTicket } from '../../types/types'
 import { useParams } from 'react-router-dom'
@@ -53,9 +53,9 @@ export const addTicket = createAsyncThunk(ADD_TICKET, async (newTicket: newTicke
   return await response.json()
 })
 
-export const updateTicket = createAsyncThunk(UPDATE_TICKET, async (changeTicket: Ticket) => {
+export const updateTicket = createAsyncThunk(UPDATE_TICKET, async (changeTicket: UpdateTicket) => {
   // const { id } = useParams()
-  const { id, title, description, status } = changeTicket
+  const { id, title, description, status, prevStatus } = changeTicket
   const response = await fetch(`${API_ROUTES.UPDATE_TICKET}${id}`, {
     method: 'PUT',
     headers: {
@@ -64,7 +64,7 @@ export const updateTicket = createAsyncThunk(UPDATE_TICKET, async (changeTicket:
     body: JSON.stringify({ title, description, status }),
   })
 
-  return (await response.json()) as Ticket
+  return { ticket: await response.json(), prevStatus: prevStatus } as ResponseTicket
 })
 
 export const ticketsSlice = createSlice({
@@ -120,10 +120,10 @@ export const ticketsSlice = createSlice({
     })
     builder.addCase(updateTicket.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        const { id, title, description, status } = action.payload
-        let foundTicketIndex = state[status].findIndex((ticket) => ticket.id === id)
-        console.log('FOUND', foundTicketIndex)
-        state[status][foundTicketIndex] = { id, title, description, status }
+        const { ticket, prevStatus } = action.payload
+        state[ticket.status].push(action.payload.ticket)
+        let foundTicketIndex = state[prevStatus].findIndex((item) => ticket.id === item.id)
+        state[prevStatus].splice(foundTicketIndex, 1)
         state.loading = 'idle'
       }
     })
