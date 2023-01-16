@@ -1,17 +1,16 @@
-import { useState } from 'react'
-import AddModal from './AddModal'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { APP_ROUTES } from '../utilis/constants'
 import Swimlane from './Swimlane'
 
 export default function Board() {
-  const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
 
   const toggle = () => {
-    setIsOpen(!isOpen)
+    navigate(APP_ROUTES.ADD)
   }
 
   return (
     <>
-      {isOpen && <AddModal close={toggle} />}
       <div className='navbar-end'>
         <button className='button rose-color mt-5 mr-6' onClick={toggle}>
           Add Ticket
@@ -28,6 +27,7 @@ export default function Board() {
           </div>
         </div>
       </section>
+      <Outlet />
     </>
   )
 }
