@@ -13,7 +13,7 @@ export default function Ticket({ id, title, description, status }: TicketProps) 
       const dropResult = monitor.getDropResult() as any
       if (item && dropResult) {
         const name = dropResult.name
-        dispatch(updateTicket({ id, title, description, status: name }))
+        dispatch(updateTicket({ id, title, description, status: name, prevStatus: status }))
         console.log(dropResult)
       }
     },
@@ -21,10 +21,6 @@ export default function Ticket({ id, title, description, status }: TicketProps) 
       isDragging: !!monitor.isDragging(),
     }),
   }))
-
-  useEffect(() => {
-    dispatch(getTickets())
-  }, [dispatch])
 
   const test = () => {
     dispatch(updateTicket({ id, title: 'hello', description: 'its crazy, how tired i am', status }))
