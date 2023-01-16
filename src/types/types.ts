@@ -14,3 +14,7 @@ export type newTicket = {
   title: string
   description: string
 }
+
+export type AddModalProps = {
+  close: () => void
+}
