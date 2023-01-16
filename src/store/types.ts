@@ -9,10 +9,3 @@ export type Ticket =  {
   description: string
   status: string
 }
-
-export type Store = {
-  backlog: Ticket[]
-  inProgress: Ticket[]
-  codeReview: Ticket[]
-  done: Ticket[]
-}

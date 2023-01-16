@@ -1,22 +1,38 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import './App.css'
 import Board from './components/Board'
 import Nav from './components/Nav'
-import { addTicket } from './store/actions'
+import { addTicket, getTickets } from './features/tickets/ticketsSlice'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { AppDispatch, RootState } from './store/store'
 
 function App() {
-  const dispatch = useDispatch()
-  const makeTicket = (title: string, description: string) => {
-    dispatch(addTicket({ title, description }))
+  const dispatch = useDispatch<AppDispatch>()
+  const { loading, error } = useSelector((state: RootState) => state.tickets)
+
+  useEffect(() => {
+    dispatch(getTickets())
+  }, [dispatch])
+
+  const test = () => {
+    dispatch(addTicket({ title: 'this is a test', description: 'ticket' }))
   }
 
+  let content
+  if (loading === 'pending') {
+    content = <div>Loading...</div>
+  }
+
+  if (error !== null) {
+    content = <div>{error}</div>
+  }
   return (
     <>
       <Nav />
+      {content}
       <Board />
-      <button onClick={() => makeTicket('this is my title', 'this is a desc')}>Click me</button>
+      <button onClick={() => test()}>Click me</button>
     </>
   )
 }
