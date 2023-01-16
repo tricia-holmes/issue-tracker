@@ -11,16 +11,17 @@ export default function Board() {
 
   return (
     <>
-      {isOpen && <AddModal close={toggle}/>}
+      {isOpen && <AddModal close={toggle} />}
       <div className='navbar-end'>
-        <button className='button is-info is-light mt-5 mr-6' onClick={toggle}>
+        <button className='button rose-color mt-5 mr-6' onClick={toggle}>
           Add Ticket
+          <i className='fa-solid fa-plus ml-2'></i>
         </button>
       </div>
       <section className='container cards-container'>
         <div className='level-item'>
           <div className='columns is-mobile is-centered is-multiline board-container'>
-            <Swimlane type='backlog' color='waring' />
+            <Swimlane type='backlog' color='warning' />
             <Swimlane type='inProgress' color='info' />
             <Swimlane type='codeReview' color='danger' />
             <Swimlane type='done' color='success' />

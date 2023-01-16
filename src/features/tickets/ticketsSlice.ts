@@ -124,6 +124,7 @@ export const ticketsSlice = createSlice({
         let foundTicketIndex = state[status].findIndex((ticket) => ticket.id === id)
         console.log('FOUND', foundTicketIndex)
         state[status][foundTicketIndex] = { id, title, description, status }
+        
         state.loading = 'idle'
       }
     })
