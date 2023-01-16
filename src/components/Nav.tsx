@@ -1,10 +1,6 @@
-import { useSelector } from 'react-redux'
 import logo from '../assets/gradient.png'
-import { Store } from '../store/types'
 
 export default function Nav() {
-  const showMeState = useSelector((state: Store) => state)
-  console.log("STATE", showMeState)
   return (
     <nav className='navbar has-shadow is-primary'>
       <div className='navbar-brand'>
