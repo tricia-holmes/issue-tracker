@@ -2,24 +2,22 @@ import { useEffect } from 'react'
 import './App.css'
 import Board from './components/Board'
 import Nav from './components/Nav'
-import { addTicket } from './store/actions'
-
-import { getTickets } from './features/tickets/ticketsSlice'
+import { addTicket, getTickets } from './features/tickets/ticketsSlice'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { AppDispatch, RootState } from './store/store'
-// import { useAppDispatch, useAppSelector } from './hooks/redux/hooks'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
   const { loading, error } = useSelector((state: RootState) => state.tickets)
-  const makeTicket = (title: string, description: string) => {
-    dispatch(addTicket({ title, description }))
-  }
 
   useEffect(() => {
     dispatch(getTickets())
   }, [dispatch])
+
+  const test = () => {
+    dispatch(addTicket({ title: 'this is a test', description: 'ticket' }))
+  }
 
   let content
   if (loading === 'pending') {
@@ -32,8 +30,9 @@ function App() {
   return (
     <>
       <Nav />
+      {content}
       <Board />
-      <button onClick={() => makeTicket('this is my title', 'this is a desc')}>Click me</button>
+      <button onClick={() => test()}>Click me</button>
     </>
   )
 }
