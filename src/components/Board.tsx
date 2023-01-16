@@ -13,7 +13,7 @@ export default function Board() {
     <>
       {isOpen && <AddModal close={toggle}/>}
       <div className='navbar-end'>
-        <button className='button is-info is-light mt-5 mr-4' onClick={toggle}>
+        <button className='button is-info is-light mt-5 mr-6' onClick={toggle}>
           Add Ticket
         </button>
       </div>
