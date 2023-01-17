@@ -1,0 +1,6 @@
+{
+  "id": "1",
+  "title": "Unable to log in to account",
+  "description": "When I enter my username and password and click the page just refreshes without logging me in. I have tried using multiple browsers and clearing my cookies, but the issue persists.",
+  "status": "inProgress"
+}

@@ -1,8 +1,7 @@
 describe('Test landing page', () => {
   beforeEach(() => {
     cy.intercept('GET', 'http://localhost:8000/tickets', { fixture: 'tickets_data.json' })
-    cy.intercept('http://localhost:8000/tickets/1', { fixture: 'update_ticket_data.json' })
-    cy.intercept('PUT', 'http://localhost:8000/tickets', { fixture: 'new_ticket_data.json' })
+    cy.intercept('POST', 'http://localhost:8000/tickets', { fixture: 'new_ticket_data.json' })
 
     cy.visit('localhost:5173/')
   })
@@ -20,6 +19,8 @@ describe('Test landing page', () => {
   })
 
   it('Should have the ability to edit a ticket by clicking a button that ticket', () => {
+    cy.intercept('PUT', 'http://localhost:8000/tickets/1', { fixture: 'update_ticket_data.json' })
+
     cy.get('.columns >:nth-child(1)')
       .find('.ticket')
       .find('button')
@@ -62,8 +63,10 @@ describe('Test landing page', () => {
   })
 
   it('Should have the ability to move a ticket from one swimlane to another', () => {
-    cy.get('.columns >:nth-child(4)').find('.ticket').trigger('dragstart').trigger('dragleave')
-    cy.get('.columns >:nth-child(3)').trigger('dragenter').trigger('dragover').trigger('drop').trigger('dragend')
-    cy.get('.columns >:nth-child(3)').find('.ticket').should('contain', 'Spelling errors on contact page')
+    cy.intercept('PUT', 'http://localhost:8000/tickets/1', { fixture: 'update_status_data.json' })
+
+    cy.get('.columns >:nth-child(1)').find('.ticket').trigger('dragstart').trigger('dragleave')
+    cy.get('.columns >:nth-child(2)').trigger('dragenter').trigger('dragover').trigger('drop').trigger('dragend')
+    cy.get('.columns >:nth-child(2)').find('.ticket').should('contain', 'Unable to log in to account')
   })
 })
