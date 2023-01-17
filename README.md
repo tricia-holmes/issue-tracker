@@ -22,6 +22,7 @@ Issue-Tracker is an easy-to-use kanban style issue tracking system. Add your tea
 * ![Vite][Vite]
 * ![CSS3][CSS3]
 * ![React][React.js]
+* ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 * ![HTML5][HTML5]
 * <img width="110"
 src="https://user-images.githubusercontent.com/108706408/212938826-6b54346c-8d27-4937-9d52-1bf1d81c1955.png"
