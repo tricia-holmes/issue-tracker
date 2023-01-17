@@ -14,7 +14,7 @@ https://user-images.githubusercontent.com/108706408/212940254-ef012569-a691-4ca3
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Issue-Tracker is an easy-to-use kanban style issue tracking system. Add your team's issues, edit, drag and drop tickets to track your progress, all in one place.
+Issue Tracker is an easy-to-use kanban style issue tracking system. Add your team's issues, edit, drag and drop tickets to track your progress, all in one place.
 
 
 ### Built With
