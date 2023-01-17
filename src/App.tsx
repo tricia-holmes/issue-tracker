@@ -8,7 +8,7 @@ import Board from './components/Board'
 import Nav from './components/Nav'
 import './App.css'
 import { APP_ROUTES } from './utilis/constants'
-import AddModal from './components/AddModal'
+import AddModal from './components/Add'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()

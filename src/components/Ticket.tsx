@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { getTickets, updateTicket } from '../features/tickets/ticketsSlice'
 import { AppDispatch } from '../store/store'
 import { ItemTypes, TicketProps } from '../types/types'
-import EditForm from './EditForm'
+import EditForm from './Edit'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
 export default function Ticket({ id, title, description, status }: TicketProps) {
