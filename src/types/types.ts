@@ -30,3 +30,10 @@ export type EditFormProps = {
   description: string
   status: 'backlog' | 'inProgress' | 'codeReview' | 'done'
 }
+
+
+export type ViewProps = {
+  close: () => void
+  title: string
+  description: string
+}

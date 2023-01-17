@@ -31,7 +31,7 @@ export default function Swimlane({ type, color }: SwimlaneProps) {
   }, [swimlaneTickets, tickets])
 
   const isActive = canDrop && isOver
-  let backgroundColor = '#222'
+  let backgroundColor = 'transparent'
   if (isActive) {
     backgroundColor = 'darkgreen'
   } else if (canDrop) {

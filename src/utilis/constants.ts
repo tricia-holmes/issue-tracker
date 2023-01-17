@@ -12,5 +12,6 @@ export const APP_ROUTES = {
   DASH: '/dashboard',
   ADD: '/tickets',
   UPDATE: '/tickets/:id',
-  ERROR: '/error'
+  ERROR: '/error',
+  DETAIL: '/detail'
 }
