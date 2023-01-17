@@ -7,7 +7,7 @@ https://user-images.githubusercontent.com/108706408/212940254-ef012569-a691-4ca3
 
 <br />
 <p align="center">
-<a href="https://neontyped.io/">Track your issue tickets here!</a> <img height="30" src="https://user-images.githubusercontent.com/108706408/212936300-1c7106c4-5ebf-4ac6-977b-06ed485247c0.gif" alt="cyan alert" />
+<a href="https://issue-tracker.pages.dev/">Track your issue tickets here!</a> <img height="30" src="https://user-images.githubusercontent.com/108706408/212936300-1c7106c4-5ebf-4ac6-977b-06ed485247c0.gif" alt="cyan alert" />
 </p>
 <br />
 
