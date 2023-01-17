@@ -11,5 +11,6 @@ export const APP_ROUTES = {
   PROJECT: '/',
   DASH: '/dashboard',
   ADD: '/tickets',
-  UPDATE: '/tickets/:id'
+  UPDATE: '/tickets/:id',
+  ERROR: '/error'
 }

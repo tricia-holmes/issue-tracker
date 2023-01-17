@@ -1,31 +1,13 @@
-import { useEffect } from 'react'
-import { getTickets } from './features/tickets/ticketsSlice'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { AppDispatch, RootState } from './store/store'
 import Board from './components/Board'
 import Nav from './components/Nav'
+import Error from './components/Error'
 import './App.css'
 import { APP_ROUTES } from './utilis/constants'
 import AddModal from './components/Add'
+import Notfound from './components/Notfound'
 
 function App() {
-  const dispatch = useDispatch<AppDispatch>()
-  const { loading, error } = useSelector((state: RootState) => state.tickets)
-
-  useEffect(() => {
-    dispatch(getTickets())
-  }, [dispatch])
-
-  let content // need to add ui for loading or if there is an error
-  if (loading === 'pending') {
-    content = <div>Loading...</div>
-  }
-
-  if (error !== null) {
-    content = <div>{error}</div>
-  }
   return (
     <Router>
       <Nav />
@@ -34,7 +16,9 @@ function App() {
           <Route path={APP_ROUTES.ADD} element={<AddModal />} />
         </Route>
         <Route path={APP_ROUTES.DASH} element={<div>TBD</div>} />
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path={'/error'} element={<Error />}></Route>
+        <Route path={'/loading'} element={<div>Loading...</div>}></Route>
+        <Route path='*' element={<Notfound />} />
       </Routes>
     </Router>
   )

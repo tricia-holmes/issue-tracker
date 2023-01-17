@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { addTicket } from '../features/tickets/ticketsSlice'
-import { AppDispatch } from '../store/store'
+import store, { AppDispatch, RootState } from '../store/store'
 import { APP_ROUTES } from '../utilis/constants'
 
 export default function AddModal() {
@@ -10,6 +11,7 @@ export default function AddModal() {
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const { error } = store.getState().tickets
 
   const handleTitleChange = (e: any) => {
     const { value } = e.target
@@ -22,8 +24,15 @@ export default function AddModal() {
   }
 
   const add = () => {
-    dispatch(addTicket({ title, description }))
-    navigate(APP_ROUTES.PROJECT)
+    dispatch(addTicket({ title, description })).catch((err) => {
+      navigate('/error')
+    })
+
+    if (error !== null) {
+      navigate('/error')
+    } else {
+      navigate(APP_ROUTES.PROJECT)
+    }
   }
 
   return (

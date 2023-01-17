@@ -1,12 +1,35 @@
 import { Outlet, useNavigate } from 'react-router-dom'
 import { APP_ROUTES } from '../utilis/constants'
 import Swimlane from './Swimlane'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getTickets } from '../features/tickets/ticketsSlice'
+import store, { AppDispatch, RootState } from '../store/store'
+import { useSelector } from 'react-redux'
 
 export default function Board() {
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
+  const { error } = useSelector((state: RootState) => state.tickets)
+
+  useEffect(() => {
+    dispatch(getTickets()).catch((err) => {
+      navigate(APP_ROUTES.ERROR)
+    })
+
+    if (error !== null) {
+      navigate('/error')
+    } else {
+      navigate(APP_ROUTES.PROJECT)
+    }
+  }, [dispatch])
 
   const toggle = () => {
-    navigate(APP_ROUTES.ADD)
+    if (store.getState().tickets.error !== null) {
+      navigate('/error')
+    } else {
+      navigate(APP_ROUTES.ADD)
+    }
   }
 
   return (

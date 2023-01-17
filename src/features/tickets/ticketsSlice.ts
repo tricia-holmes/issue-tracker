@@ -1,9 +1,8 @@
-import { createSlice, createAsyncThunk, Update } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { ADD_TICKET, SET_TICKETS, UPDATE_TICKET } from '../../store/actions'
 import { ResponseTicket, Ticket, UpdateTicket } from '../../store/types'
 import { API_ROUTES } from '../../utilis/constants'
 import { newTicket } from '../../types/types'
-import { useParams } from 'react-router-dom'
 
 export type InitialState = {
   backlog: Ticket[]
@@ -24,19 +23,27 @@ const initialState: InitialState = {
 }
 
 export const getTickets = createAsyncThunk(SET_TICKETS, async () => {
-  const response = await fetch(API_ROUTES.GET_TICKETS, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  const tickets = await response.json()
+  try {
+    const response = await fetch(API_ROUTES.GET_TICKETS, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
-  return {
-    backlog: tickets.filter((t: Ticket) => t.status === 'backlog'),
-    inProgress: tickets.filter((t: Ticket) => t.status === 'inProgress'),
-    codeReview: tickets.filter((t: Ticket) => t.status === 'codeReview'),
-    done: tickets.filter((t: Ticket) => t.status === 'done'),
+    if (!response.ok) {
+      throw new Error(await response.json())
+    }
+    const tickets = await response.json()
+
+    return {
+      backlog: tickets.filter((t: Ticket) => t.status === 'backlog'),
+      inProgress: tickets.filter((t: Ticket) => t.status === 'inProgress'),
+      codeReview: tickets.filter((t: Ticket) => t.status === 'codeReview'),
+      done: tickets.filter((t: Ticket) => t.status === 'done'),
+    }
+  } catch (err) {
+    console.error
   }
 })
 
@@ -54,7 +61,6 @@ export const addTicket = createAsyncThunk(ADD_TICKET, async (newTicket: newTicke
 })
 
 export const updateTicket = createAsyncThunk(UPDATE_TICKET, async (changeTicket: UpdateTicket) => {
-  // const { id } = useParams()
   const { id, title, description, status, prevStatus } = changeTicket
   const response = await fetch(`${API_ROUTES.UPDATE_TICKET}${id}`, {
     method: 'PUT',
@@ -81,10 +87,10 @@ export const ticketsSlice = createSlice({
     })
     builder.addCase(getTickets.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        state.backlog = action.payload.backlog
-        state.inProgress = action.payload.inProgress
-        state.codeReview = action.payload.codeReview
-        state.done = action.payload.done
+        state.backlog = action.payload?.backlog
+        state.inProgress = action.payload?.inProgress
+        state.codeReview = action.payload?.codeReview
+        state.done = action.payload?.done
         state.loading = 'idle'
       }
     })
@@ -94,7 +100,7 @@ export const ticketsSlice = createSlice({
         state.error = 'Error occured'
       }
     })
-    // add a ticket
+    //add a ticket
     builder.addCase(addTicket.pending, (state, action) => {
       if (state.loading === 'idle') {
         state.loading = 'pending'
@@ -112,7 +118,7 @@ export const ticketsSlice = createSlice({
         state.error = 'Error occured'
       }
     })
-    // update a ticket
+    //update a ticket
     builder.addCase(updateTicket.pending, (state, action) => {
       if (state.loading === 'idle') {
         state.loading = 'pending'
@@ -120,11 +126,13 @@ export const ticketsSlice = createSlice({
     })
     builder.addCase(updateTicket.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        const { ticket, prevStatus } = action.payload
-        state[ticket.status].push(action.payload.ticket)
-        let foundTicketIndex = state[prevStatus].findIndex((item) => ticket.id === item.id)
-        state[prevStatus].splice(foundTicketIndex, 1)
-        state.loading = 'idle'
+        if (action.payload) {
+          const { ticket, prevStatus } = action.payload
+          state[ticket.status].push(action.payload.ticket)
+          let foundTicketIndex = state[prevStatus].findIndex((item) => ticket.id === item.id)
+          state[prevStatus].splice(foundTicketIndex, 1)
+          state.loading = 'idle'
+        }
       }
     })
     builder.addCase(updateTicket.rejected, (state, action) => {

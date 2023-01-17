@@ -2,15 +2,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
 import { useDrag } from 'react-dnd'
 import { useDispatch } from 'react-redux'
-import { getTickets, updateTicket } from '../features/tickets/ticketsSlice'
-import { AppDispatch } from '../store/store'
+import { updateTicket } from '../features/tickets/ticketsSlice'
+import store, { AppDispatch } from '../store/store'
 import { ItemTypes, TicketProps } from '../types/types'
 import EditForm from './Edit'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router'
 
 export default function Ticket({ id, title, description, status }: TicketProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
+  const { error } = store.getState().tickets
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.TICKET,
     end: (item, monitor) => {
@@ -25,6 +28,12 @@ export default function Ticket({ id, title, description, status }: TicketProps) 
       isDragging: !!monitor.isDragging(),
     }),
   }))
+
+  useEffect(() => {
+    if (error !== null) {
+      navigate('/error')
+    } 
+  }, [error])
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -45,7 +54,7 @@ export default function Ticket({ id, title, description, status }: TicketProps) 
         <div className='ticket'>
           <div className='ticket-content'>
             <button data-id='pencil' className='icon position' onClick={toggle}>
-            <FontAwesomeIcon icon={faPencil} />
+              <FontAwesomeIcon icon={faPencil} />
             </button>
             <span>{title}</span>
           </div>
