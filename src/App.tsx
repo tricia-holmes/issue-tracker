@@ -5,6 +5,7 @@ import Error from './components/Error'
 import './App.css'
 import { APP_ROUTES } from './utilis/constants'
 import AddModal from './components/Add'
+import Notfound from './components/Notfound'
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path={APP_ROUTES.DASH} element={<div>TBD</div>} />
         <Route path={'/error'} element={<Error />}></Route>
         <Route path={'/loading'} element={<div>Loading...</div>}></Route>
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path='*' element={<Notfound />} />
       </Routes>
     </Router>
   )
