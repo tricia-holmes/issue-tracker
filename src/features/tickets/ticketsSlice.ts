@@ -10,7 +10,7 @@ export type InitialState = {
   codeReview: Ticket[]
   done: Ticket[]
   loading: string
-  error: null | string | any
+  error: null | string
 }
 
 const initialState: InitialState = {
@@ -48,45 +48,29 @@ export const getTickets = createAsyncThunk(SET_TICKETS, async () => {
 })
 
 export const addTicket = createAsyncThunk(ADD_TICKET, async (newTicket: newTicket) => {
-  try {
-    const { title, description } = newTicket
-    const response = await fetch(API_ROUTES.ADD_TICKET, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, description }),
-    })
+  const { title, description } = newTicket
+  const response = await fetch(API_ROUTES.ADD_TICKET, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ title, description }),
+  })
 
-    if (!response.ok) {
-      throw new Error(await response.json())
-    }
-
-    return await response.json()
-  } catch (err) {
-    console.error
-  }
+  return await response.json()
 })
 
 export const updateTicket = createAsyncThunk(UPDATE_TICKET, async (changeTicket: UpdateTicket) => {
-  try {
-    const { id, title, description, status, prevStatus } = changeTicket
-    const response = await fetch(`${API_ROUTES.UPDATE_TICKET}${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, description, status }),
-    })
+  const { id, title, description, status, prevStatus } = changeTicket
+  const response = await fetch(`${API_ROUTES.UPDATE_TICKET}${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ title, description, status }),
+  })
 
-    if (!response.ok) {
-      throw new Error(await response.json())
-    }
-
-    return { ticket: await response.json(), prevStatus: prevStatus } as ResponseTicket
-  } catch (err) {
-    console.error
-  }
+  return { ticket: await response.json(), prevStatus: prevStatus } as ResponseTicket
 })
 
 export const ticketsSlice = createSlice({
@@ -103,7 +87,6 @@ export const ticketsSlice = createSlice({
     })
     builder.addCase(getTickets.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        state.error = null
         state.backlog = action.payload?.backlog
         state.inProgress = action.payload?.inProgress
         state.codeReview = action.payload?.codeReview
@@ -125,7 +108,6 @@ export const ticketsSlice = createSlice({
     })
     builder.addCase(addTicket.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        state.error = null
         state.backlog.push(action.payload)
         state.loading = 'idle'
       }
@@ -144,7 +126,6 @@ export const ticketsSlice = createSlice({
     })
     builder.addCase(updateTicket.fulfilled, (state, action) => {
       if (state.loading === 'pending') {
-        state.error = null
         if (action.payload) {
           const { ticket, prevStatus } = action.payload
           state[ticket.status].push(action.payload.ticket)
