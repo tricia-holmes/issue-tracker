@@ -16,8 +16,7 @@ function App() {
           <Route path={APP_ROUTES.ADD} element={<AddModal />} />
         </Route>
         <Route path={APP_ROUTES.DASH} element={<div>TBD</div>} />
-        <Route path={'/error'} element={<Error />}></Route>
-        <Route path={'/loading'} element={<div>Loading...</div>}></Route>
+        <Route path={APP_ROUTES.ERROR} element={<Error />}></Route>
         <Route path='*' element={<Notfound />} />
       </Routes>
     </Router>

@@ -34,8 +34,8 @@ export default function Board() {
 
   return (
     <>
-      <div className='navbar-end'>
-        <button className='button rose-color mt-5 mr-6' onClick={toggle}>
+      <div className='navbar-end buttons are-medium'>
+        <button className='button rose-color is-rounded mt-5 mr-6' onClick={toggle}>
           Add Ticket
           <i className='fa-solid fa-plus ml-2'></i>
         </button>

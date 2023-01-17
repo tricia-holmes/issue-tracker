@@ -8,9 +8,11 @@ import { ItemTypes, TicketProps } from '../types/types'
 import EditForm from './Edit'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router'
+import View from './View'
 
 export default function Ticket({ id, title, description, status }: TicketProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [showDetails, setshowDetails] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
   const { error } = store.getState().tickets
@@ -32,16 +34,21 @@ export default function Ticket({ id, title, description, status }: TicketProps) 
   useEffect(() => {
     if (error !== null) {
       navigate('/error')
-    } 
+    }
   }, [error])
 
   const toggle = () => {
     setIsOpen(!isOpen)
   }
 
+  const toggleDetails = () => {
+    setshowDetails(!showDetails)
+  }
+
   return (
     <>
       {isOpen && <EditForm close={toggle} id={id} title={title} description={description} status={status} />}
+      {showDetails && <View close={toggleDetails} title={title} description={description} />}
       <div
         ref={drag}
         style={{
@@ -56,7 +63,9 @@ export default function Ticket({ id, title, description, status }: TicketProps) 
             <button data-id='pencil' className='icon position' onClick={toggle}>
               <FontAwesomeIcon icon={faPencil} />
             </button>
-            <span>{title}</span>
+            <span className='ticket-hover' onClick={toggleDetails}>
+              {title}
+            </span>
           </div>
         </div>
       </div>

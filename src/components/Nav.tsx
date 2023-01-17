@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import tracker  from '../assets/tracker.png'
+import tracker from '../assets/tracker.png'
 import { APP_ROUTES } from '../utilis/constants'
 
 export default function Nav() {
@@ -7,7 +7,12 @@ export default function Nav() {
     <nav className='navbar blue-color'>
       <div className='navbar-brand'>
         <Link to='/' className='navbar-item'>
-          <img src={tracker} alt='placeholder-icon' style={{ maxHeight: '70px' }} className='py-2 px-2' />
+          <img
+            src={tracker}
+            alt='a gradient green icon that shows a list with checkmarks'
+            style={{ maxHeight: '70px' }}
+            className='py-2 px-2'
+          />
         </Link>
       </div>
       <div className='navbar-menu'>

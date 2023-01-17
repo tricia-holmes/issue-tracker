@@ -26,7 +26,7 @@ a {
 }
 
 .board-container {
-  margin-top: 75px;
+  margin-top: 65px;
 }
 
 .cards-container {
@@ -51,6 +51,7 @@ a {
   height: 100%;
 }
 
+.details,
 .not-found,
 .error {
   position: relative;
@@ -70,16 +71,37 @@ a {
 }
 
 .blue-color {
-  background: linear-gradient(112.1deg, #0652C5 11.4%, #D4418E 70.2%);
+  background: linear-gradient(112.1deg, #0652c5 11.4%, #d4418e 70.2%);
   color: white;
 }
 
 .rose-color {
-  background-color: hsl(217, 71%, 53%);
+  background-color: hsla(253, 71%, 53%, 0.778);
   color: white;
-  border-color: hsl(217, 71%, 53%);
+  border-color: hsla(253, 71%, 53%, 0.778);
+}
+
+.rose-color:hover {
+ color: #4FDAA4
 }
 
 .navbar-item {
   color: #fff;
+}
+
+.ticket-hover:hover {
+  background-color: #f9d976;
+  color: black;
+}
+
+.details-format {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.dark-mode {
+  background-color: #1f2330;
 }
