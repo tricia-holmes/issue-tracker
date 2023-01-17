@@ -40,14 +40,14 @@ export default function EditForm({close, id, title, description, status} : EditF
             <div className='field'>
               <label className='label'>Title</label>
               <div className='control'>
-                <input className='input' type='text' value={ediTitle} required onChange={handleEditTitleChange}/>
+                <input className='input' name='title' type='text' value={ediTitle} required onChange={handleEditTitleChange}/>
               </div>
             </div>
   
             <div className='field'>
               <label className='label'>Description</label>
               <div className='control'>
-                <input className='input' type='text' value={editDescription} required onChange={handleEditDescChange}/>
+                <input className='input' name='description' type='text' value={editDescription} required onChange={handleEditDescChange}/>
               </div>
             </div>
           </section>
