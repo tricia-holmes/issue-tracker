@@ -1,11 +1,15 @@
+import { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 import { RootState } from '../store/store'
 import { ItemTypes, SwimlaneProps } from '../types/types'
+import { APP_ROUTES } from '../utilis/constants'
 import Ticket from './Ticket'
 
 export default function Swimlane({ type, color }: SwimlaneProps) {
   const tickets = useSelector((state: RootState) => state.tickets[type])
+  const navigate = useNavigate()
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.TICKET,
     drop: () => ({ name: `${type}` }),
@@ -15,6 +19,17 @@ export default function Swimlane({ type, color }: SwimlaneProps) {
     }),
   }))
 
+  const swimlaneTickets = tickets?.map((ticket) => (
+    <Ticket key={`ticket ${ticket.id}`} id={ticket.id} title={ticket.title} description={ticket.description} status={ticket.status} />
+  ))
+
+  useEffect(() => {
+    if (!swimlaneTickets || !tickets) {
+      navigate(APP_ROUTES.ERROR)
+    }
+
+  }, [swimlaneTickets, tickets])
+
   const isActive = canDrop && isOver
   let backgroundColor = '#222'
   if (isActive) {
@@ -23,9 +38,6 @@ export default function Swimlane({ type, color }: SwimlaneProps) {
     backgroundColor = 'darkkhaki'
   }
 
-  const swimlaneTickets = tickets.map((ticket) => (
-    <Ticket key={`ticket ${ticket.id}`} id={ticket.id} title={ticket.title} description={ticket.description} status={ticket.status} />
-  ))
 
   return (
     <div ref={drop} style={{ backgroundColor }}>
