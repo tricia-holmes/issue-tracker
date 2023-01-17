@@ -42,6 +42,7 @@ export default function AddModal() {
                 <input
                   className='input'
                   type='text'
+                  name='addTitle'
                   value={title}
                   placeholder='add the ticket title here!'
                   required
@@ -56,6 +57,7 @@ export default function AddModal() {
                 <input
                   className='input'
                   type='text'
+                  name='addDescription'
                   value={description}
                   placeholder='add the ticket description here!'
                   required
