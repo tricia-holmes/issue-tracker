@@ -26,7 +26,7 @@ describe('Test landing page', () => {
     cy.get('img')
   })
 
-  it.only('Should be able to click back to home page after viewing the details of a ticket', () => {
+  it('Should be able to click back to home page after viewing the details of a ticket', () => {
     cy.get('.columns >:nth-child(1)').find('.ticket').should('contain', 'Unable to log in to account').click()
     cy.get('.delete').click()
     cy.get('img')
