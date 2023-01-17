@@ -18,6 +18,20 @@ describe('Test landing page', () => {
     cy.get('.columns >:nth-child(4)').find('.ticket').should('contain', 'Spelling errors on contact page')
   })
 
+  it('Should be able to click the text of a ticket and see more details', () => {
+    cy.get('.columns >:nth-child(4)').find('.ticket').should('contain', 'Spelling errors on contact page').click()
+    cy.get('.message-body').contains('Spelling errors on contact page')
+    cy.get('.message-body').contains('The errors are located on the contact form and in the contact information section.')
+    cy.get('.delete').click()
+    cy.get('img')
+  })
+
+  it.only('Should be able to click back to home page after viewing the details of a ticket', () => {
+    cy.get('.columns >:nth-child(1)').find('.ticket').should('contain', 'Unable to log in to account').click()
+    cy.get('.delete').click()
+    cy.get('img')
+  })
+
   it('Should have the ability to edit a ticket by clicking a button that ticket', () => {
     cy.intercept('PUT', 'http://localhost:8000/tickets/1', { fixture: 'update_ticket_data.json' })
 
