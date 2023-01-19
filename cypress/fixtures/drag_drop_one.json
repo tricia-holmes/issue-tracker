@@ -1,0 +1,6 @@
+{
+  "id": "1",
+  "title": "Fix drag and drop bug",
+  "description": "Title and description are not persisting if you edit and then drag and drop.",
+  "status": "backlog"
+}
