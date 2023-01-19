@@ -76,11 +76,39 @@ describe('Test landing page', () => {
     cy.get('.button.rose-color').click().get('.delete').click().get('.columns')
   })
 
-  it('Should have the ability to move a ticket from one swimlane to another', () => {
+  it.only('Should have the ability to move a ticket from one swimlane to another', () => {
     cy.intercept('PUT', 'http://localhost:8000/tickets/1', { fixture: 'update_status_data.json' })
 
     cy.get('.columns >:nth-child(1)').find('.ticket').trigger('dragstart').trigger('dragleave')
     cy.get('.columns >:nth-child(2)').trigger('dragenter').trigger('dragover').trigger('drop').trigger('dragend')
     cy.get('.columns >:nth-child(2)').find('.ticket').should('contain', 'Unable to log in to account')
+  })
+
+  it.only('Should have the ability to edit a ticket, update the status by dragging and drop, and have all their informaiton persist', () => {
+    cy.intercept('PUT', 'http://localhost:8000/tickets/1', { fixture: 'drag_drop_one.json' })
+
+    cy.get('.columns >:nth-child(1)')
+      .find('.ticket')
+      .should('contain', 'Unable to log in to account')
+      .find('button')
+      .click()
+      .get('input[name="title"]')
+      .clear()
+      .type('Fix drag and drop bug')
+
+    cy.get('input[name="description"]')
+      .clear()
+      .type('Title and description are not persisting if you edit and then drag and drop.')
+      .get('.button.is-success')
+      .click()
+
+    cy.intercept('PUT', 'http://localhost:8000/tickets/1', { fixture: 'drag_drop_two.json' })
+    cy.get('.columns >:nth-child(1)').find('.ticket').trigger('dragstart').trigger('dragleave')
+    cy.get('.columns >:nth-child(4)').trigger('dragenter').trigger('dragover').trigger('drop').trigger('dragend')
+    cy.get('.columns >:nth-child(4)').find('.ticket').eq(1).should('contain', 'Fix drag and drop bug').click()
+    cy.get('.message-body').contains('Fix drag and drop bug')
+    cy.get('.message-body').contains('Title and description are not persisting if you edit and then drag and drop.')
+    cy.get('.delete').click()
+    cy.get('img')
   })
 })
