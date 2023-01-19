@@ -23,13 +23,12 @@ export default function Ticket({ id, title, description, status }: TicketProps) 
       if (item && dropResult) {
         const name = dropResult.name
         dispatch(updateTicket({ id, title, description, status: name, prevStatus: status }))
-        console.log(dropResult)
       }
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
-  }))
+  }), [title, description])
 
   useEffect(() => {
     if (error !== null) {
