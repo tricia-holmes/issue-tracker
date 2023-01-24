@@ -7,10 +7,10 @@ describe('Test landing page', () => {
   })
 
   it('Should show a user a project board with four swimlanes for varying statuses', () => {
-    cy.get('.columns >:nth-child(1)').contains('backlog')
-    cy.get('.columns >:nth-child(2)').contains('inProgress') //need to update after fixing lettering
-    cy.get('.columns >:nth-child(3)').contains('codeReview') //need to update after fixing lettering
-    cy.get('.columns >:nth-child(4)').contains('done')
+    cy.get('.columns >:nth-child(1)').contains('Backlog')
+    cy.get('.columns >:nth-child(2)').contains('In Progress')
+    cy.get('.columns >:nth-child(3)').contains('Code Review') 
+    cy.get('.columns >:nth-child(4)').contains('Done')
   })
 
   it('Should show a user all the tickets that are currently created on the project board', () => {

@@ -13,6 +13,6 @@ describe('Show when a user goes to an non-existent url', () => {
   it('Should allow a user to go back to the main project page', () => {
     cy.visit('localhost:5173/cats')
     cy.get('.delete').click()
-    cy.get('.columns >:nth-child(4)').should('contain', 'done')
+    cy.get('.columns >:nth-child(4)').should('contain', 'Done')
   })
 })

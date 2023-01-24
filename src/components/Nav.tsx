@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import tracker from '../assets/tracker.png'
-import { APP_ROUTES } from '../utilis/constants'
 
 export default function Nav() {
   return (
@@ -16,11 +15,7 @@ export default function Nav() {
         </Link>
       </div>
       <div className='navbar-menu'>
-        <div className='navbar-end'>
-          <Link className='navbar-item' to={APP_ROUTES.PROJECT}>
-            Project
-          </Link>
-        </div>
+        <div className='navbar-end'></div>
       </div>
     </nav>
   )
